@@ -50,7 +50,7 @@ Read [wiki](https://github.com/molimawka/svelte-wsocket/wiki) and **[warning](ht
   import { onDestroy } from 'svelte';
   import WSocket from 'svelte-wsocket';
 
-	const wsocket = new WSocket("wss://example.com/")
+  const wsocket = new WSocket("wss://example.com/")
   const testEvent = wsocket.on("testEvent")
   const unsubTestEvent = testEvent.subscribe((data) => {
     console.log("Receive testEvent")
