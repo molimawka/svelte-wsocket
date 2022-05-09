@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Simple websocket wrapper for svelte",
   "type": "module",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "types": "dist",
   "files": [
     "dist",
