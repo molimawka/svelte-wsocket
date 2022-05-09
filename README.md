@@ -1,4 +1,5 @@
 [![Svelte v3](https://img.shields.io/badge/svelte-v3-orange.svg)](https://svelte.dev)
+[![npm-publish](https://github.com/molimawka/svelte-wsocket/actions/workflows/npm-publish.yml/badge.svg?branch=master)](https://github.com/molimawka/svelte-wsocket/actions/workflows/npm-publish.yml)
 
 # svelte-wsocket
 
@@ -11,6 +12,7 @@ npm install svelte-wsocket
 ```
 
 ## Wiki
+
 Read [wiki](https://github.com/molimawka/svelte-wsocket/wiki) and **[warning](https://github.com/molimawka/svelte-wsocket/wiki/WSocket#warning)** before creating issue :)
 
 ## Usage
@@ -44,7 +46,9 @@ Read [wiki](https://github.com/molimawka/svelte-wsocket/wiki) and **[warning](ht
 ```
 
 ### Example 2
+
 <sub>It is not recommended to do this, but it is possible)</sub>
+
 ```svelte
 <script>
   import { onDestroy } from 'svelte';
