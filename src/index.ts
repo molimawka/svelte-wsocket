@@ -6,7 +6,6 @@ type SetFunction = (value: unknown) => void;
 const instances = new Map<string | URL, WSocket>();
 
 export default class WSocket {
-  public readonly index: number;
   public readonly url: string | URL;
   public readonly protocols?: string | string[];
   private ws: WebSocket;
@@ -20,7 +19,6 @@ export default class WSocket {
     this.protocols = protocols;
     this.ws = new WebSocket(this.url, this.protocols);
     instances.set(url, this);
-    this.index = instances.size - 1;
     this.addListeners();
   }
 
@@ -47,14 +45,14 @@ export default class WSocket {
   public open(): void {
     if (this.ws.readyState === WebSocket.CLOSED) {
       this.ws = new WebSocket(this.url, this.protocols);
-      this.onStateChagne();
+      this.onStateChange();
     }
   }
 
   public close(): void {
     if (this.ws.readyState === WebSocket.OPEN) {
       this.ws.close();
-      this.onStateChagne();
+      this.onStateChange();
     }
   }
 
@@ -99,12 +97,12 @@ export default class WSocket {
   }
 
   private onSocketOpen(): void {
-    this.onStateChagne();
+    this.onStateChange();
     this.emit("open", true);
   }
 
   private onSocketClose(ev: CloseEvent): void {
-    this.onStateChagne();
+    this.onStateChange();
     this.emit("close", ev.code, ev.reason);
   }
 
@@ -120,11 +118,12 @@ export default class WSocket {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { event, data } = JSON.parse(stringData);
       this.emit(event, data);
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) {
+      console.warn(`[WSocket] Json parsing failed! Message: ${stringData}`);
+    }
   }
 
-  private onStateChagne(): void {
+  private onStateChange(): void {
     const state = this.ws.readyState;
     this.emit("$$_changeState", state);
   }
