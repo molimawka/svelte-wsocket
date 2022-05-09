@@ -17,5 +17,6 @@ jobs:
       - run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
+          check-version: false
           registry: https://registry.npmjs.org/
           token: ${{ secrets.NPM_TOKEN }}
