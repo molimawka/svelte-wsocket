@@ -1,5 +1,5 @@
 type UnsubscribeFunction = () => void;
-type SubscribeCallbackFunction = (...args: unknown[]) => void;
+type SubscribeCallbackFunction = (arg: unknown) => void;
 type SubscribeFunction = (cb: SubscribeCallbackFunction) => UnsubscribeFunction;
 type SetFunction = (value: unknown) => void;
 
@@ -82,10 +82,10 @@ export default class WSocket {
     };
   }
 
-  public emit(eventName: string, ...args: unknown[]): void {
+  public emit(eventName: string, arg: unknown): void {
     const callbacks = this.eventsHandlers.get(eventName);
     if (callbacks) {
-      callbacks.forEach((cb) => cb(...args));
+      callbacks.forEach((cb) => cb(arg));
     }
   }
 
@@ -103,7 +103,7 @@ export default class WSocket {
 
   private onSocketClose(ev: CloseEvent): void {
     this.onStateChange();
-    this.emit("close", ev.code, ev.reason);
+    this.emit("close", { code: ev.code, reason: ev.reason });
   }
 
   private onSocketError(ev: Event): void {
